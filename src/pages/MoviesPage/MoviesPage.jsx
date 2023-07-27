@@ -1,16 +1,22 @@
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+// import { useEffect } from 'react';
 
 const MoviesPage = () => {
+  // useEffect(() => {
+  //   //http запит
+  // }, []);
+
   return (
     <>
-      <div>MoviesPage</div>
-      {/* <Link to={movies.id}>
-        <ul>
-          <li>test1</li>
-          <li>test2</li>
-          <li>test3</li>
-        </ul>
-      </Link> */}
+      <div>
+        {['movie-1', 'movie-2', 'movie-3'].map(movie => {
+          return (
+            <Link key={movie} to={`${movie}`}>
+              {movie}
+            </Link>
+          );
+        })}
+      </div>
     </>
   );
 };
