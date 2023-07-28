@@ -3,7 +3,7 @@ import { Link, useLocation, useSearchParams } from 'react-router-dom';
 // import { useEffect } from 'react';
 
 const MoviesPage = () => {
-  const [movies, setMovies] = useState(['movie-1', 'movie-2', 'movie-3']);
+  const [movies] = useState(['movie-1', 'movie-2', 'movie-3']);
 
   //отримуємо обʼєкт місця положення
   const location = useLocation();
