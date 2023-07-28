@@ -1,10 +1,20 @@
+import { lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Layout from './Layout/Layout';
-import MovieDetails from '../pages/MovieDetails/MovieDetails';
-import HomePage from 'pages/HomePage/HomePage';
-import MoviesPage from 'pages/MoviesPage/MoviesPage';
-import Cast from './Cast/Cast';
-import Reviews from './Reviews/Reviews';
+const HomePage = lazy(() => import('pages/HomePage/HomePage'));
+const MovieDetails = lazy(() => import('../pages/MovieDetails/MovieDetails'));
+const MoviesPage = lazy(() => import('pages/MoviesPage/MoviesPage'));
+const Cast = lazy(() => import('./Cast/Cast'));
+const Reviews = lazy(() => import('./Reviews/Reviews'));
+//якщо іменований експорт, то можна ще зробити так
+// import { Cast } from './Cast/Cast';
+// const Cast = lazy(() =>
+//   import('./Cast/Cast').then(module => ({
+//     ...module,
+//     default: module.Cast
+//   })
+//   )
+// );
 
 const App = () => {
   return (
