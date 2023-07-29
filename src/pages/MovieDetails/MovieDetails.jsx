@@ -13,7 +13,7 @@ const MovieDetails = () => {
   return (
     <>
       <h1>MovieDetails: {movieId}</h1>
-      <Link to={backLinkLocationRef.current}>Go back</Link>{' '}
+      <Link to={backLinkLocationRef.current}>Go back</Link>
       {/* якщо з нової вкладки переходимо, то відкриється ст з /movies */}
       <ul>
         <li>
