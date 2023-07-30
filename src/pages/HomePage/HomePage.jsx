@@ -1,3 +1,5 @@
+import { ToastContainer, toast, Slide } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Loader from 'components/Loader/Loader';
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
@@ -11,25 +13,26 @@ const HomePage = () => {
   const location = useLocation();
 
   useEffect(() => {
-    const TrendingMovies = () => {
+    const TrendingMovies = async () => {
       setLoading(true);
-
-      fetchTrendingMovies()
-        .then(trendingMovies => {
-          setMovies(trendingMovies);
-        })
-        .catch(error => {
-          console.log(error);
-        })
-        .finally(() => {
-          setLoading(false);
+      try {
+        const trendingMovies = await fetchTrendingMovies();
+        setMovies(trendingMovies);
+      } catch {
+        toast.error('Ooops...Something went wrong', {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 2000,
         });
+      } finally {
+        setLoading(false);
+      }
     };
     TrendingMovies();
   }, []);
 
   return (
     <>
+      <ToastContainer transition={Slide} />
       <h1>Trending today</h1>
       <ul movies={movies}>
         {movies.map(movie => (
