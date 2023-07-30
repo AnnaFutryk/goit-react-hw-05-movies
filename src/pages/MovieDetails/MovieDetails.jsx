@@ -2,8 +2,19 @@ import { ToastContainer, toast, Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loader from 'components/Loader/Loader';
 import { Suspense, useEffect, useRef, useState } from 'react';
-import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
+import { Outlet, useLocation, useParams } from 'react-router-dom';
 import { fetchMovieDetails } from 'services/api';
+import {
+  AddInfoList,
+  BackButton,
+  BackLink,
+  Container,
+  Hr,
+  Img,
+  LinkInfo,
+  List,
+  SubTitle,
+} from './MovieDetails.styled';
 
 const MovieDetails = () => {
   const location = useLocation();
@@ -40,15 +51,15 @@ const MovieDetails = () => {
   return (
     <>
       <ToastContainer transition={Slide} />
-      <Link to={backLinkLocationRef.current}>
-        <button type="button">Go back</button>
-      </Link>
+      <BackLink to={backLinkLocationRef.current}>
+        <BackButton type="button">Go back</BackButton>
+      </BackLink>
       {/* якщо з нової вкладки переходимо, то відкриється ст з /movies */}
       {loading && <Loader />}
       {movieInfo && (
-        <div>
+        <Container>
           {poster_path ? (
-            <img
+            <Img
               width="300px"
               src={`https://image.tmdb.org/t/p/w500${poster_path}`}
               alt={title}
@@ -56,28 +67,30 @@ const MovieDetails = () => {
           ) : (
             <div>No poster available</div>
           )}
-          <h1>{title}</h1>
-          <p>User score: {popularity}</p>
-          <h2>Overview</h2>
-          <p>{overview}</p>
-          <h2>Genres</h2>
-          <ul>
-            {genres &&
-              genres.map(genre => <li key={genre.id}>{genre.name}</li>)}
-          </ul>
-        </div>
+          <div>
+            <h1>{title}</h1>
+            <p>User score: {popularity}</p>
+            <h2>Overview</h2>
+            <p>{overview}</p>
+            <h2>Genres</h2>
+            <List>
+              {genres &&
+                genres.map(genre => <li key={genre.id}>{genre.name}</li>)}
+            </List>
+          </div>
+        </Container>
       )}
-      <hr />
-      <h2>Additinal information</h2>
-      <ul>
+      <Hr />
+      <SubTitle>Additinal information</SubTitle>
+      <AddInfoList>
         <li>
-          <Link to="cast">Cast</Link>
+          <LinkInfo to="cast">Cast</LinkInfo>
         </li>
         <li>
-          <Link to="reviews">Reviews</Link>
+          <LinkInfo to="reviews">Reviews</LinkInfo>
         </li>
-      </ul>
-      <hr />
+      </AddInfoList>
+      <Hr />
       <Suspense fallback={<Loader />}>
         <Outlet />
       </Suspense>

@@ -1,9 +1,11 @@
+import PropTypes from 'prop-types';
 import { ToastContainer, toast, Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loader from 'components/Loader/Loader';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchReviews } from 'services/api';
+import { Item, List } from './Reviews.styled';
 
 const Reviews = () => {
   const { movieId } = useParams();
@@ -33,20 +35,29 @@ const Reviews = () => {
       <ToastContainer transition={Slide} />
       {loading && <Loader />}
 
-      <ul>
+      <List>
         {reviews.length === 0 ? (
           <div>We don't have any reviews for this movie</div>
         ) : (
           reviews.map(({ author, content, id }) => (
-            <li key={id}>
+            <Item key={id}>
               <h2>Author: {author}</h2>
               <p>{content}</p>
-            </li>
+            </Item>
           ))
         )}
-      </ul>
+      </List>
     </>
   );
 };
 
+Reviews.propTypes = {
+  reviews: PropTypes.arrayOf(
+    PropTypes.shape({
+      author: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired,
+      content: PropTypes.string.isRequired,
+    })
+  ),
+};
 export default Reviews;

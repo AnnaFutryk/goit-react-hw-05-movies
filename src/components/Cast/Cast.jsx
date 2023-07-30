@@ -1,9 +1,11 @@
+import PropTypes from 'prop-types';
 import { ToastContainer, toast, Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loader from 'components/Loader/Loader';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchCast } from 'services/api';
+import { Img, List, Text } from './Cast.styled';
 
 const Cast = () => {
   const { movieId } = useParams();
@@ -32,11 +34,10 @@ const Cast = () => {
     <div>
       <ToastContainer transition={Slide} />
       {loading && <Loader />}
-
-      <ul>
+      <List>
         {actors.map(({ id, profile_path, name, character }) => (
           <li key={id}>
-            <img
+            <Img
               width="200px"
               src={
                 profile_path
@@ -45,12 +46,23 @@ const Cast = () => {
               }
               alt={name}
             />
-            <p>{name}</p>
-            <p>Character: {character}</p>
+            <Text>{name}</Text>
+            <Text>Character: {character}</Text>
           </li>
         ))}
-      </ul>
+      </List>
     </div>
   );
+};
+
+Cast.propTypes = {
+  actors: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired,
+      profile_path: PropTypes.string,
+      character: PropTypes.number.isRequired,
+    })
+  ),
 };
 export default Cast;

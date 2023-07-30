@@ -1,9 +1,11 @@
+import PropTypes from 'prop-types';
 import { ToastContainer, toast, Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loader from 'components/Loader/Loader';
 import { useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { fetchTrendingMovies } from 'services/api';
+import { List, Title, Link } from './HomePage.styled';
 
 const HomePage = () => {
   const [movies, setMovies] = useState([]);
@@ -33,18 +35,38 @@ const HomePage = () => {
   return (
     <>
       <ToastContainer transition={Slide} />
-      <h1>Trending today</h1>
-      <ul movies={movies}>
-        {movies.map(movie => (
-          <li key={movie.id}>
-            <Link to={`/movies/${movie.id}`} state={{ from: location }}>
-              {movie.title}
+      <Title>Trending today</Title>
+      <List $movies={movies}>
+        {movies.map(({ id, title, poster_path }) => (
+          <li key={id}>
+            <Link to={`/movies/${id}`} state={{ from: location }}>
+              {poster_path ? (
+                <img
+                  width="190px"
+                  src={`https://image.tmdb.org/t/p/w500${poster_path}`}
+                  alt={title}
+                />
+              ) : (
+                <div>No poster available</div>
+              )}
+              {title}
             </Link>
           </li>
         ))}
-      </ul>
+      </List>
       {loading && <Loader />}
     </>
   );
 };
+
+HomePage.propTypes = {
+  movies: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired,
+      profile_path: PropTypes.string,
+    })
+  ),
+};
+
 export default HomePage;

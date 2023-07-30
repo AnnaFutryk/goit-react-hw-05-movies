@@ -29,7 +29,7 @@ const Searchbar = ({ onSubmit }) => {
         <Input
           name="searchText"
           type="text"
-          autoComplete="off"
+          autoComplete="on"
           autoFocus
           placeholder="Search movies"
           value={value}
