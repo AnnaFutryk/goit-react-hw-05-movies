@@ -29,6 +29,9 @@ export const BackLink = styled(NavLink)`
 `;
 
 export const Container = styled.div`
+  @media screen and (max-width: 767.99px) {
+    display: block;
+  }
   display: flex;
   margin-left: 20px;
   margin-right: 20px;
@@ -36,6 +39,9 @@ export const Container = styled.div`
 `;
 
 export const Img = styled.img`
+  @media screen and (max-width: 767.99px) {
+    width: 250px;
+  }
   border-radius: 12px;
 `;
 
