@@ -1,9 +1,14 @@
 import styled from 'styled-components';
 
 export const SearchForm = styled.form`
+  @media screen and (max-width: 475.99px) {
+    display: flex;
+    flex-direction: column;
+  }
   margin-top: 90px;
   width: 100%;
   display: flex;
+  flex-direction: row;
   gap: 10px;
   align-items: center;
   justify-content: center;
@@ -30,6 +35,9 @@ export const SearchButton = styled.button`
 `;
 
 export const Input = styled.input`
+  @media screen and (max-width: 767.99px) {
+    width: 260px;
+  }
   width: 400px;
   height: 26px;
   padding: 4px;
