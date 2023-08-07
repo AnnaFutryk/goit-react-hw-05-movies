@@ -2,12 +2,21 @@ import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const Title = styled.h1`
+  @media screen and (max-width: 475.99px) {
+    font-size: 36px;
+  }
   margin-top: 90px;
   text-align: center;
   font-size: 46px;
 `;
 
 export const List = styled.ul`
+  @media screen and (max-width: 475.99px) {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    align-items: center;
+  }
   display: grid;
   max-width: calc(100vw - 48px);
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
